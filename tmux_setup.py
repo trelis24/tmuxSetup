@@ -72,7 +72,7 @@ def default_scan(port):
 	tmux('select-pane -t 0')
 	tmux_shell('cd %s' % PATH)
 	tmux_shell('clear')
-	tmux_shell('nmap -Pn -sC {0} -oA tcp_{0}'.format(IP,IP.replace('.','_')))
+	tmux_shell('nmap -Pn -sC -sV {0} -oA tcp_{0}'.format(IP,IP.replace('.','_')))
 	tmux('select-pane -t 1')
 	tmux_shell('cd %s' % PATH)
 	tmux_shell('clear')
@@ -141,7 +141,7 @@ def port_443(port):
 	tmux('select-pane -t 3')
 	tmux_shell('cd %s' % PATH)
 	tmux_shell('clear')
-	tmux_shell('nmap -Pn -A -p {0} --script ssl* {1} -oA {1}_{0}'.format(port,IP,IP.replace('.','_')))
+	tmux_shell('nmap -Pn -A -p {0} --script ssl* {1} -oA {1}_{0}_ssl'.format(port,IP,IP.replace('.','_')))
 
 
 def main(ports):
@@ -173,6 +173,6 @@ if __name__ == '__main__':
 
 	# Session
 	tmux('new -A -d -s {}_automatic_scans'.format(IP.replace('.','_')))
-
+	
 	main(ports)
 
